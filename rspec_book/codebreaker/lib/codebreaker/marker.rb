@@ -20,6 +20,7 @@ module Codebreaker
     end
 
     def total_match_count
+=begin
       count = 0
       secret = @secret.split('')
       @guess.split('').map do |n|
@@ -29,6 +30,15 @@ module Codebreaker
         end
       end
       count
+=end
+      secret = @secret.split('')
+      @guess.split('').inject(0) do |count, n|
+        count + (delete_first(secret, n) ? 1 : 0)
+      end
+    end
+
+    def delete_first(code, n)
+      code.delete_at(code.index(n)) if code.index(n)
     end
 
     def exact_match?(index)
